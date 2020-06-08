@@ -9,6 +9,8 @@ namespace BlogApp.Core.Posts.Models
     {
         public string Name { get; set; }
 
-        public ICollection<PostTagEntity> Posts { get; set; }
+        public Guid PostId { get; set; }
+
+        public PostEntity Post { get; set; }
     }
 }

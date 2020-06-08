@@ -1,4 +1,6 @@
-﻿using BlogApp.Core.Posts.Models;
+﻿using BlogApp.Core.Comments.Models;
+using BlogApp.Core.Posts.Models;
+using BlogApp.Core.Reply.Models;
 using BlogApp.Core.Users.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,7 +24,9 @@ namespace BlogApp.Data
 
         public DbSet<TagEntity> Tags { get; set; }
 
-        public DbSet<PostTagEntity> PostTags { get; set; }
+        public DbSet<CommentEntity> Comments { get; set; }
+
+        public DbSet<ReplyEntity> Replies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

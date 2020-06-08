@@ -12,8 +12,10 @@ namespace BlogApp.Data.EntityConfigs
         public void Configure(EntityTypeBuilder<TagEntity> builder)
         {
             builder.ToTable("Tags")
-                .HasMany<PostTagEntity>(t => t.Posts)
-                .WithOne(pt => pt.Tag);
+                .HasOne<PostEntity>(t => t.Post)
+                .WithMany(p => p.Tags)
+                .HasForeignKey(f => f.PostId);
+                
         }
     }
 }

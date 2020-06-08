@@ -20,8 +20,10 @@ namespace BlogApp.Core.Users.Models
             LastName = userEntity.LastName;
             Email = userEntity.Email;
             Password = userEntity.Password;
+            Salt = userEntity.Salt;
             ProfileImageUrl = userEntity.ProfileImageUrl;
             LinkedInProfileUrl = userEntity.LinkedInProfileUrl;
+            TwitterProfileUrl = userEntity.TwitterProfileUrl;
             GitHubProfileUrl = userEntity.GitHubProfileUrl;
             Posts = userEntity.Posts?.Select(x => new Post(x)).ToList();
         }
@@ -35,6 +37,8 @@ namespace BlogApp.Core.Users.Models
         public string Email { get; set; }
 
         public string Password { get; set; }
+
+        public string Salt { get; set; }
 
         public string ProfileImageUrl { get; set; }
 

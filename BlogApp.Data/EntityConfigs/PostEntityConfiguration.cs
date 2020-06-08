@@ -18,8 +18,8 @@ namespace BlogApp.Data.EntityConfigs
                 .HasForeignKey(f => f.AuthorId);
 
             builder
-                .HasMany<PostTagEntity>(p => p.Tags)
-                .WithOne(pt => pt.Post);
+                .HasMany<TagEntity>(p => p.Tags)
+                .WithOne(t => t.Post);
         }
     }
 }

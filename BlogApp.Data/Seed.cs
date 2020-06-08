@@ -1,4 +1,5 @@
-﻿using BlogApp.Core.Posts.Models;
+﻿using BlogApp.Core.Framework;
+using BlogApp.Core.Posts.Models;
 using BlogApp.Core.Users.Models;
 using System;
 using System.Collections.Generic;
@@ -9,15 +10,19 @@ namespace BlogApp.Data
 {
     public static class Seed
     {
-        public static void SeedDatabase(BlogDbContext blogDbContext)
+        public static void SeedDatabase(BlogDbContext blogDbContext, ICryptoService cryptoService)
         {
+            var salt = cryptoService.GenerateSalt(32);
+            var passwordHash = cryptoService.HashPasswordKeyDerivationPbkdf2("password", salt);
+
             var user1 = new UserEntity
             {
                 Id = Guid.NewGuid(),
                 FirstName = "User1",
                 LastName = "User11",
                 Email = "user1@example.com",
-                Password = "user1",
+                Salt = salt,
+                Password = passwordHash,
                 CreatedDateUtc = DateTime.UtcNow
             };
 
@@ -27,7 +32,8 @@ namespace BlogApp.Data
                 FirstName = "User2",
                 LastName = "User22",
                 Email = "user2@example.com",
-                Password = "user2",
+                Salt = salt,
+                Password = passwordHash,
                 CreatedDateUtc = DateTime.UtcNow
             };
 
@@ -76,53 +82,29 @@ namespace BlogApp.Data
             var tag1 = new TagEntity
             {
                 Id = Guid.NewGuid(),
-                Name = "Tag 1"
+                Name = "Tag 1",
+                PostId = user1post1.Id
             };
 
             var tag2 = new TagEntity
             {
                 Id = Guid.NewGuid(),
-                Name = "Tag 2"
+                Name = "Tag 2",
+                PostId = user1post2.Id
             };
 
             var tag3 = new TagEntity
             {
                 Id = Guid.NewGuid(),
-                Name = "Tag 3"
+                Name = "Tag 3",
+                PostId = user2post1.Id
             };
 
             var tag4 = new TagEntity
             {
                 Id = Guid.NewGuid(),
-                Name = "Tag 4"
-            };
-
-            var user1post1Tag = new PostTagEntity
-            {
-                Id = Guid.NewGuid(),
-                PostId = user1post1.Id,
-                TagId = tag1.Id
-            };
-
-            var user1post2Tag = new PostTagEntity
-            {
-                Id = Guid.NewGuid(),
-                PostId = user1post2.Id,
-                TagId = tag2.Id
-            };
-
-            var user2post1Tag = new PostTagEntity
-            {
-                Id = Guid.NewGuid(),
-                PostId = user2post1.Id,
-                TagId = tag3.Id
-            };
-
-            var user2post2Tag = new PostTagEntity
-            {
-                Id = Guid.NewGuid(),
-                PostId = user2post2.Id,
-                TagId = tag4.Id
+                Name = "Tag 4",
+                PostId = user2post2.Id
             };
 
             if (!blogDbContext.Users.Any())
@@ -138,11 +120,6 @@ namespace BlogApp.Data
             if (!blogDbContext.Tags.Any())
             {
                 blogDbContext.Tags.AddRange(tag1, tag2, tag3, tag4);
-            }
-
-            if (!blogDbContext.PostTags.Any())
-            {
-                blogDbContext.PostTags.AddRange(user1post1Tag, user1post2Tag, user2post1Tag, user2post2Tag);
             }
 
             blogDbContext.SaveChanges();

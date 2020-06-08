@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
+using BlogApp.Core.Framework;
 using BlogApp.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,8 +23,9 @@ namespace BlogApp.UIApi
             using (var scope = host.Services.CreateScope())
             {
                 var blogDbContext = scope.ServiceProvider.GetRequiredService<BlogDbContext>();
+                var cryptoService = scope.ServiceProvider.GetRequiredService<ICryptoService>();
                 blogDbContext.Database.Migrate();
-                Seed.SeedDatabase(blogDbContext);
+                Seed.SeedDatabase(blogDbContext, cryptoService);
             }
 
             host.Run();

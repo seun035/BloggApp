@@ -13,5 +13,13 @@ namespace BlogApp.Core.Users.Models
         public string Password { get; set; }
 
         public string Email { get; set; }
+
+        public string ProfileImageUrl { get; set; }
+
+        public string LinkedInProfileUrl { get; set; }
+
+        public string TwitterProfileUrl { get; set; }
+
+        public string GitHubProfileUrl { get; set; }
     }
 }

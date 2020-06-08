@@ -20,9 +20,10 @@ namespace BlogApp.Core.Posts.Models
             Content = postEntity.Content;
             Author = new User(postEntity.Author);
             Status = postEntity.Status;
-            Tags = postEntity.Tags?.Select(t => new Tag(t.Tag)).ToList();
+            Tags = postEntity.Tags?.Select(t => new Tag(t)).ToList();
             LastModifiedDateUtc = postEntity.LastModifiedDateUtc;
             LastModfiedById = postEntity.LastModfiedById;
+            CreatedDateUtc = postEntity.CreatedDateUtc;
         }
 
         public Guid Id { get; set; }
@@ -40,5 +41,7 @@ namespace BlogApp.Core.Posts.Models
         public DateTime? LastModifiedDateUtc { get; set; }
 
         public Guid? LastModfiedById { get; set; }
+
+        public DateTime CreatedDateUtc { get; set; }
     }
 }

@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using BlogApp.Data;
 using BlogApp.UIApi.Bootstrap;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BlogApp.UIApi
 {
@@ -32,6 +35,20 @@ namespace BlogApp.UIApi
             services.AddControllers();
 
             services.AddDbContext<BlogDbContext>(option => option.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddCors(option => option.AddPolicy("CorsPolicy", c => c.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:4200")
+                       .AllowCredentials()));
+            services.AddAuthentication(options => { options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; })
+                .AddJwtBearer(opt =>
+                {
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Super Secret Key")),
+                        ValidateAudience = false,
+                        ValidateIssuer = false
+                    };
+                });
         }
 
         // ConfigureContainer is where you can register things directly
@@ -55,6 +72,8 @@ namespace BlogApp.UIApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

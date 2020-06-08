@@ -18,10 +18,14 @@ namespace BlogApp.Core.Data
 
         Task<T> GetAsync(Expression<Func<T, bool>> expression, bool allowNull = false);
 
+        T Get(Guid entityId, bool allowNull = false);
+
         Task<IList<T>> FindAllAsync();
 
         Task<IList<T>> FindAllAsync(Expression<Func<T, bool>> expression);
 
         Task UpdateAsync(T entity);
+
+        Task DeleteAsync(Guid entityId)
     }
 }

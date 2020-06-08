@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.Data.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20200517205058_initialCreate")]
-    partial class initialCreate
+    [Migration("20200523060021_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,30 +55,6 @@ namespace BlogApp.Data.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("BlogApp.Core.Posts.Models.PostTagEntity", b =>
-                {
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("TagId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedDateUtc")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("PostId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("PostTag");
-                });
-
             modelBuilder.Entity("BlogApp.Core.Posts.Models.TagEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -94,7 +70,12 @@ namespace BlogApp.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("Tags");
                 });
@@ -132,6 +113,9 @@ namespace BlogApp.Data.Migrations
                     b.Property<string>("ProfileImageUrl")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Salt")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("TwitterProfileUrl")
                         .HasColumnType("TEXT");
 
@@ -149,17 +133,11 @@ namespace BlogApp.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BlogApp.Core.Posts.Models.PostTagEntity", b =>
+            modelBuilder.Entity("BlogApp.Core.Posts.Models.TagEntity", b =>
                 {
                     b.HasOne("BlogApp.Core.Posts.Models.PostEntity", "Post")
                         .WithMany("Tags")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BlogApp.Core.Posts.Models.TagEntity", "Tag")
-                        .WithMany("Posts")
-                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

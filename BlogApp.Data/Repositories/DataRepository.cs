@@ -64,6 +64,20 @@ namespace BlogApp.Data.Repositories
             return entity;
         }
 
+        public T Get(Guid entityId, bool allowNull = false)
+        {
+            ArgumentGuard.NotEmpty(entityId, nameof(entityId));
+
+            T entity = _blogDbContext.Set<T>().Find(entityId);
+
+            if (entity == null && !allowNull)
+            {
+                throw new NullReferenceException(); //change to app defined exception
+            }
+
+            return entity;
+        }
+
         public async Task<T> GetAsync(System.Linq.Expressions.Expression<Func<T, bool>> expression, bool allowNull = false)
         {
             ArgumentGuard.NotNull(expression, nameof(expression));
@@ -84,6 +98,15 @@ namespace BlogApp.Data.Repositories
 
             _blogDbContext.Entry<T>(entity).State = EntityState.Modified;
             await _blogDbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(Guid entityId)
+        {
+            ArgumentGuard.NotEmpty(entityId, nameof(entityId));
+
+            var entity = await GetAsync(entityId);
+
+            _blogDbContext.Remove(entity);
         }
     }
 }
