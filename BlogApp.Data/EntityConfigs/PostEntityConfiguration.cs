@@ -1,4 +1,5 @@
-﻿using BlogApp.Core.Posts.Models;
+﻿using BlogApp.Core.Comments.Models;
+using BlogApp.Core.Posts.Models;
 using BlogApp.Core.Users.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -14,8 +15,13 @@ namespace BlogApp.Data.EntityConfigs
         {
             builder.ToTable("Posts")
                 .HasOne<UserEntity>(p => p.Author)
-                .WithMany(u => u.Posts)
+                .WithMany()
                 .HasForeignKey(f => f.AuthorId);
+
+            builder
+                .HasMany<CommentEntity>()
+                .WithOne(c => c.Post)
+                .HasForeignKey(f => f.PostId);
 
             builder
                 .HasMany<TagEntity>(p => p.Tags)

@@ -26,6 +26,8 @@ namespace BlogApp.Core.Data
 
         Task UpdateAsync(T entity);
 
-        Task DeleteAsync(Guid entityId)
+        Task DeleteAsync(Guid entityId);
+
+        Task SaveChangesAsync();
     }
 }

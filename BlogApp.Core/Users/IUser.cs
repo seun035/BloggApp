@@ -25,6 +25,6 @@ namespace BlogApp.Core.Users
 
         string GitHubProfileUrl { get; set; }
 
-        ICollection<Post> Posts { get; set; }
+        // ICollection<Post> Posts { get; set; }
     }
 }

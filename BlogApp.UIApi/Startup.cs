@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Autofac;
 using BlogApp.Data;
 using BlogApp.UIApi.Bootstrap;
+using BlogApp.UIApi.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -68,6 +69,7 @@ namespace BlogApp.UIApi
             //{
             //    app.UseDeveloperExceptionPage();
             //}
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseHttpsRedirection();
 

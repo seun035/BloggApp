@@ -15,11 +15,15 @@ namespace BlogApp.Data.EntityConfigs
         {
             builder
                 .ToTable("Comments")
-                .HasOne<PostEntity>(c => c.Post)
-                .WithMany(p => p.Comments)
+                .HasOne<PostEntity>()
+                .WithMany()
                 .HasForeignKey(c => c.PostId);
 
-            // builder.HasOne<UserEntity>(c => c.Author).
+            builder
+                .HasOne<UserEntity>(u => u.Author)
+                .WithMany()
+                .HasForeignKey(c => c.AuthorId);
+
         }
     }
 }

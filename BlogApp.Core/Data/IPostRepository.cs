@@ -10,5 +10,7 @@ namespace BlogApp.Core.Data
     public interface IPostRepository: IDataRepository<PostEntity>
     {
         Task<Paged<Post>> SearchAsync(PostDbQuery dbQuery);
+
+        Task<PostEntity> GetPostAsync(Guid postId, bool allowNull = false);
     }
 }

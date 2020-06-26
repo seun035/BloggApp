@@ -11,7 +11,7 @@ namespace BlogApp.Core.Posts
     {
         Task CreatePostAsync(SavePostModel savePostModel);
 
-        Task UpdatePostAsync(SavePostModel savePostModel, Guid postId);
+        Task UpdatePostAsync(UpdatePostModel updatePostModel);
 
         Task<Post> GetPost(Guid postId);
 

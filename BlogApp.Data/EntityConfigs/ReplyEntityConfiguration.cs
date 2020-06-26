@@ -1,5 +1,6 @@
 ﻿using BlogApp.Core.Comments.Models;
-using BlogApp.Core.Reply.Models;
+using BlogApp.Core.Replies.Models;
+using BlogApp.Core.Users.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -15,8 +16,13 @@ namespace BlogApp.Data.EntityConfigs
             builder
                 .ToTable("Replies")
                 .HasOne<CommentEntity>(r => r.Comment)
-                .WithMany(c => c.Replies)
+                .WithMany()
                 .HasForeignKey(r => r.CommentId);
+
+            builder
+                .HasOne<UserEntity>(r => r.Author)
+                .WithMany()
+                .HasForeignKey(r => r.AuthorId);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace BlogApp.Core.Posts.Models
 
         public ICollection<TagEntity> Tags { get; set; }
 
-        public ICollection<CommentEntity> Comments { get; set; }
+        // public ICollection<CommentEntity> Comments { get; set; }
 
         public DateTime? LastModifiedDateUtc { get; set; }
 

@@ -108,5 +108,10 @@ namespace BlogApp.Data.Repositories
 
             _blogDbContext.Remove(entity);
         }
+
+        public async Task SaveChangesAsync()
+        {
+            await _blogDbContext.SaveChangesAsync();
+        }
     }
 }

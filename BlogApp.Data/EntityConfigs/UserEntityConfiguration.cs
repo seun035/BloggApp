@@ -13,7 +13,7 @@ namespace BlogApp.Data.EntityConfigs
         public void Configure(EntityTypeBuilder<UserEntity> builder)
         {
             builder.ToTable("Users")
-                .HasMany<PostEntity>(u => u.Posts)
+                .HasMany<PostEntity>()
                 .WithOne(p => p.Author);
         }
     }

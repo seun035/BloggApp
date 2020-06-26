@@ -32,6 +32,20 @@ namespace BlogApp.UIApiServices.Posts
             var posts = await _postManager.SearchAsync(query);
             return _mapper.Map<Paged<PostViewModel>>(posts);
         }
+
+        public async Task UpdatePostAsync(SavePostModel model, Guid postId)
+        {
+            var updatePostModel = new UpdatePostModel
+            {
+                Id = postId,
+                Content = model.Content,
+                Status = model.Status,
+                Tags = model.Tags,
+                Title = model.Title
+            };
+
+            await _postManager.UpdatePostAsync(updatePostModel);
+        }
     }
 
     public interface IPostComposerService
@@ -39,5 +53,7 @@ namespace BlogApp.UIApiServices.Posts
         Task<PostViewModel> GetPostAsync(Guid postId);
 
         Task<Paged<PostViewModel>> SearchAsync(PostQuery query);
+
+        Task UpdatePostAsync(SavePostModel model, Guid postId);
     }
 }

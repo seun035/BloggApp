@@ -1,6 +1,6 @@
 ﻿using BlogApp.Core.Comments.Models;
 using BlogApp.Core.Posts.Models;
-using BlogApp.Core.Reply.Models;
+using BlogApp.Core.Replies.Models;
 using BlogApp.Core.Users.Models;
 using Microsoft.EntityFrameworkCore;
 using System;

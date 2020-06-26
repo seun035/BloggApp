@@ -36,7 +36,7 @@ namespace BlogApp.UIApi.Controllers
         [HttpPut("{postId:Guid}")]
         public Task UpdatePost([FromBody]SavePostModel model, Guid postId)
         {
-            return _postManager.UpdatePostAsync(model, postId);
+            return _postComposerService.UpdatePostAsync(model, postId);
         }
 
         [HttpGet("{postId:Guid}")]

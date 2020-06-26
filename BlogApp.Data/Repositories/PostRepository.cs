@@ -25,7 +25,7 @@ namespace BlogApp.Data.Repositories
         {
             ArgumentGuard.NotNull(dbQuery, nameof(dbQuery));
 
-            var query = _blogDbContext.Posts.AsQueryable();
+            var query = _blogDbContext.Posts.Include(p => p.Author).Include(p => p.Tags).AsQueryable();
 
             if (dbQuery.SearchText != null)
             {
@@ -39,9 +39,25 @@ namespace BlogApp.Data.Repositories
 
             var totalCount = query?.Count() ?? default(long);
             var results = await query.Skip(dbQuery.PageSize * (dbQuery.PageNumber - 1)).Take(dbQuery.PageSize).ToListAsync();
+
             var posts = results.Select(x => new Post(x)).ToList();
 
             return new Paged<Post> { PageSize = dbQuery.PageSize, PageNumber = dbQuery.PageNumber, TotalCount = totalCount, Items = posts };
         }
+
+        public async Task<PostEntity> GetPostAsync(Guid postId, bool allowNull = false)
+        {
+            ArgumentGuard.NotEmpty(postId, nameof(postId));
+
+            PostEntity post = await _blogDbContext.Posts.Include(p => p.Tags).FirstOrDefaultAsync(p => p.Id == postId);
+
+            if (post == null && !allowNull)
+            {
+                throw new NullReferenceException(); //change to app defined exception
+            }
+
+            return post;
+        }
+
     }
 }

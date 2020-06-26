@@ -41,13 +41,13 @@ namespace BlogApp.DomainServices.Posts
             return await _postService.SearchAsync(query);
         }
 
-        public async Task UpdatePostAsync(SavePostModel savePostModel, Guid postId)
+        public async Task UpdatePostAsync(UpdatePostModel updatePostModel)
         {
-            ArgumentGuard.NotNull(savePostModel, nameof(savePostModel));
-            ArgumentGuard.NotEmpty(postId, nameof(postId));
+            ArgumentGuard.NotNull(updatePostModel, nameof(updatePostModel));
+            ArgumentGuard.NotEmpty(updatePostModel.Id, nameof(updatePostModel.Id));
 
             //permission
-            await _postService.UpdatePostAsync(savePostModel, postId);
+            await _postService.UpdatePostAsync(updatePostModel);
         }
 
         public async Task DeletePostAsync(Guid postId)

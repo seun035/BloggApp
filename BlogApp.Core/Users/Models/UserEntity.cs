@@ -1,5 +1,7 @@
-﻿using BlogApp.Core.Common.Models;
+﻿using BlogApp.Core.Comments.Models;
+using BlogApp.Core.Common.Models;
 using BlogApp.Core.Posts.Models;
+using BlogApp.Core.Replies.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,6 +28,10 @@ namespace BlogApp.Core.Users.Models
 
         public string GitHubProfileUrl { get; set; }
 
-        public ICollection<PostEntity> Posts { get; set; }
+        //public ICollection<PostEntity> Posts { get; set; }
+
+        //public ICollection<CommentEntity> Comments { get; set; }
+
+        //public ICollection<ReplyEntity> Replies { get; set; }
     }
 }

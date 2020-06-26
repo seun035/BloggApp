@@ -7,6 +7,7 @@ using BlogApp.Core.Auths.Models;
 using BlogApp.Core.Users.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace BlogApp.UIApi.Controllers
 {

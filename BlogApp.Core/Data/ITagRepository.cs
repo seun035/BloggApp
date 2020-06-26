@@ -7,5 +7,6 @@ namespace BlogApp.Core.Data
 {
     public interface ITagRepository: IDataRepository<TagEntity>
     {
+        void RemoveTagsAsync(IEnumerable<TagEntity> tags);
     }
 }

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlogApp.Core.Reply.Models
+namespace BlogApp.Core.Replies.Models
 {
     public class ReplyEntity: BaseEntity
     {

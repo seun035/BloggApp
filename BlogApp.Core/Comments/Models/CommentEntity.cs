@@ -1,6 +1,6 @@
 ﻿using BlogApp.Core.Common.Models;
 using BlogApp.Core.Posts.Models;
-using BlogApp.Core.Reply.Models;
+using BlogApp.Core.Replies.Models;
 using BlogApp.Core.Users.Models;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace BlogApp.Core.Comments.Models
 
         public PostEntity Post { get; set; }
 
-        public ICollection<ReplyEntity> Replies { get; set; }
+        //public ICollection<ReplyEntity> Replies { get; set; }
 
         public DateTime? LastModifiedDateUtc { get; set; }
 
